@@ -45,33 +45,40 @@
 				 <%
 					if (isLogin) {
 						
-						if(enroll_bean!=null){
-							%><a class="nav-link" href="read_rollbook.jsp?user_no=<%=enroll_bean.getUser_no() %>">출석관리</a><%
+						if(enroll_bean.getEnrolled()==1){
+							%><a class="nav-link" href="read_rollbook.jsp?user_no=<%=enroll_bean.getUser_no() %>">출석부</a><%
 						}
 						else{
-				%> <a class="nav-link" href="rollbook.jsp">출석관리</a> <%
+				%> <a class="nav-link" href="rollbook.jsp">출석부</a> <%
  							}
 					} else {
- %> <a class="nav-link" href="login.jsp?next=rollbook">출석관리</a>
+ %> <a class="nav-link" href="loginBT.jsp?next=rollbook">출석부</a>
 				<%
 					}
 				%> 
+			</li>
+			<li class="nav-item">
+			<% if(isLogin){
+					if(login_bean.getUser_level().equals("M")){%>
+				
+				<a class="nav-link" href="merge_rollbook.jsp">출석관리</a>
+				<%} 
+			}%>
 			</li>
 		</ul>
 		<%
 			if (isLogin) {
 		%>
-		<h4><%=login_bean.getUser_name()%>
-			님 환영합니다.
-		</h4>
-		<form action="member/sessionLogout.jsp" method="post">
-			<input type="submit" name="logout" value="로그아웃" />
+		<h4 class="nav-item active" style="color:#92B3B7"><%=login_bean.getUser_name()%></h4>
+			<h5>님 환영합니다.&nbsp;&nbsp;</h5>
+		<form action="member/sessionLogout.jsp" method="post" class="form-inline mt-2 mt-md-0">
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit" >로그아웃</button>
 		</form>
 		<%
 			} else {
 		%>
 
-		<form action="login.jsp" class="form-inline mt-2 mt-md-0">
+		<form action="loginBT.jsp" class="form-inline mt-2 mt-md-0">
 			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">로그인</button>
 		</form>
 		<%

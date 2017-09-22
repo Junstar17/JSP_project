@@ -45,6 +45,7 @@ $("#joinForm").validate({ // joinForm에 validate를 적용
     	user_pw:{required:true, rangelength:[3,15]},
         pwdConfirm:{required:true, equalTo:"#user_pw"}, // equalTo : id가 pwd인 값과 같아야함
         user_name:"required" // 검증값이 하나일 경우 이와 같이도 가능
+        
     } ,
     messages:{ // rules에 해당하는 메시지를 지정하는 속성 (규칙이름과 메시지를 작성)
     	user_id:{

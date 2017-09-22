@@ -5,6 +5,8 @@
 	response.setHeader("Cache-Control", "no-cache");
 	response.addHeader("Cache-Control", "no-store");
 	response.setDateHeader("Expires", 1L);
+	
+	response.sendRedirect("../main.jsp");
 %>
 <!DOCTYPE html>
 <html>

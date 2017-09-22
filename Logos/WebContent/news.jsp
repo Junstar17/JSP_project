@@ -14,8 +14,6 @@
 	response.setHeader("Cache-Control", "no-cache");
 	response.addHeader("Cache-Control", "no-store");
 	response.setDateHeader("Expires", 1L);
-	String choice2 = request.getParameter("choice");
-	session.setAttribute("choice", choice2);
 %>
 <%-- 로그인 체크 코드가 있는 jsp를 포함시킨다. --%>
 
@@ -49,30 +47,28 @@
 <head>
 <meta charset="UTF-8">
 <title>board/main.jsp</title>
+<style type="text/css">
+ form{display:inline}
+</style>
 </head>
-<script>
-    function change1(obj){
-       
-        location.href="main_guin.jsp?choice=I";
-    }
-
-</script>
 <body>
 
 	<div align="center" style="color:white; background-color:#04B4AE; padding:20px;">
 	<h1>소식지 게시판</h1>
 	</div>
-	<table class="type07" align="center" border="1" width="1200" style="text-align:center">
+	<table class="table" align="center" border="1" width="800" style="text-align:center">
+			<thead class="thead-inverse">
 			<tr>
 				<th width="10%">글번호</th>
 				<th>글제목</th>
 				<th width="20%">작성자</th>
 				<th width="20%">작성일</th>
 			</tr>
+			</thead>
 			<% for(BoardBean bean : list){ %>
 			<tr>
 				<td><%=bean.getBoard_no() %></td>
-				<td><a href="read_board.jsp?gujik_idx=<%=bean.getBoard_no()%>&page_num=<%=page_num%>">
+				<td><a href="read_board.jsp?board_no=<%=bean.getBoard_no()%>&page_num=<%=page_num%>">
 						<%=bean.getBtitle() %>
 					</a>
 				</td>
@@ -89,11 +85,18 @@
 	<a href="main.jsp?page_num=<%=page_num+1%>">다음</a>
 	<% } %>
 	<br/>
-	<div align="right" style="padding-top:30px;">
-	<form action="news/write_board.jsp" name="write" method="post">
-		<input type="submit" value="글쓰기" />
+	<% if(isLogin){
+			if(login_bean.getUser_level().equals("M")){ %>
+	}
+	<div align="center" style="padding-top:30px;">
+	<form action="news/write_board.jsp?addcnt=1" name="write" method="post">
+		<button type="submit" class="btn btn-dark" >글쓰기</button>
+	</form>
+	<form action="delete_board.jsp" name="delete" method="post">
+		<button type="submit" class="btn btn-dark" >삭제</button>
 	</form>
 	</div>
+	<%} }%>
 	
 </body>
 </html>

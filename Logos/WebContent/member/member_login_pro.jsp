@@ -14,7 +14,6 @@
 	DataBean enroll_bean = (DataBean) session.getAttribute("enroll_bean");
 	String user_id = request.getParameter("user_id");
 	String user_pw = request.getParameter("user_pw");
-	String choice=request.getParameter("choice");
 	String next=null;
 	next=request.getParameter("next");
 	// 빈객체 생성
@@ -35,9 +34,8 @@
 		RDao rdao =new RDao();
 		enroll_bean=rdao.getselectata(login_bean.getUser_no());
 		
-		if(next!=null){
-			
-			if(enroll_bean!=null){
+		if(next.equals(null)){
+			if(enroll_bean.isEnrolled()){
 				response.sendRedirect("../read_rollbook.jsp?user_no="+login_bean.getUser_no());
 			}
 			else
@@ -47,7 +45,7 @@
 			response.sendRedirect("../main.jsp");
 	} 
 	else {
-		response.sendRedirect("../main.jsp?login=" + result);
+		response.sendRedirect("../loginBT.jsp?login=" + result);
 	}
 %>
 
